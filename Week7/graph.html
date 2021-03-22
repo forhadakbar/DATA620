@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1>Retaliation</h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 800px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "dodgerblue", "id": "GuntherMatt", "label": "GuntherMatt", "shape": "dot"}, {"color": "dodgerblue", "id": "KirklandNiles", "label": "KirklandNiles", "shape": "dot"}, {"color": "dodgerblue", "id": "CoreyAlonzo", "label": "CoreyAlonzo", "shape": "dot"}, {"color": "teal", "id": "LeeCrystal", "label": "LeeCrystal", "shape": "dot"}, {"color": "teal", "id": "AndrewsSally", "label": "AndrewsSally", "shape": "dot"}, {"color": "dodgerblue", "id": "LangdonAndrew", "label": "LangdonAndrew", "shape": "dot"}, {"color": "dodgerblue", "id": "StanleyMaurice", "label": "StanleyMaurice", "shape": "dot"}, {"color": "dodgerblue", "id": "MobleyLyle", "label": "MobleyLyle", "shape": "dot"}, {"color": "dodgerblue", "id": "ParkerByron", "label": "ParkerByron", "shape": "dot"}, {"color": "dodgerblue", "id": "CantwellSylvester", "label": "CantwellSylvester", "shape": "dot"}, {"color": "dodgerblue", "id": "BowersCarl", "label": "BowersCarl", "shape": "dot"}, {"color": "teal", "id": "ForesterCarol", "label": "ForesterCarol", "shape": "dot"}, {"color": "teal", "id": "WinfreyAlice", "label": "WinfreyAlice", "shape": "dot"}, {"color": "dodgerblue", "id": "MitchellGrant", "label": "MitchellGrant", "shape": "dot"}, {"color": "teal", "id": "VestMiko", "label": "VestMiko", "shape": "dot"}, {"color": "dodgerblue", "id": "KirklandRudy", "label": "KirklandRudy", "shape": "dot"}, {"color": "dodgerblue", "id": "RosenHenry", "label": "RosenHenry", "shape": "dot"}, {"color": "teal", "id": "DerbyTammy", "label": "DerbyTammy", "shape": "dot"}, {"color": "dodgerblue", "id": "EvansJay", "label": "EvansJay", "shape": "dot"}, {"color": "dodgerblue", "id": "TerryThomas", "label": "TerryThomas", "shape": "dot"}, {"color": "dodgerblue", "id": "NoblesCary", "label": "NoblesCary", "shape": "dot"}, {"color": "dodgerblue", "id": "FindlayGary", "label": "FindlayGary", "shape": "dot"}, {"color": "teal", "id": "JeffersonMillie", "label": "JeffersonMillie", "shape": "dot"}, {"color": "teal", "id": "TatumAnna", "label": "TatumAnna", "shape": "dot"}, {"color": "teal", "id": "BoyleAlice", "label": "BoyleAlice", "shape": "dot"}, {"color": "teal", "id": "GliddenDiana", "label": "GliddenDiana", "shape": "dot"}, {"color": "dodgerblue", "id": "GleesonMatt", "label": "GleesonMatt", "shape": "dot"}, {"color": "dodgerblue", "id": "WolffRodney", "label": "WolffRodney", "shape": "dot"}, {"color": "dodgerblue", "id": "TillieNigel", "label": "TillieNigel", "shape": "dot"}, {"color": "dodgerblue", "id": "BendixJerryLee", "label": "BendixJerryLee", "shape": "dot"}, {"color": "dodgerblue", "id": "AlexanderNolan", "label": "AlexanderNolan", "shape": "dot"}, {"color": "dodgerblue", "id": "CanfieldAristides", "label": "CanfieldAristides", "shape": "dot"}, {"color": "teal", "id": "SprintMelody", "label": "SprintMelody", "shape": "dot"}, {"color": "dodgerblue", "id": "GradyRufus", "label": "GradyRufus", "shape": "dot"}, {"color": "dodgerblue", "id": "StithCarlton", "label": "StithCarlton", "shape": "dot"}, {"color": "dodgerblue", "id": "BeckerMax", "label": "BeckerMax", "shape": "dot"}, {"color": "dodgerblue", "id": "TraskBenjie", "label": "TraskBenjie", "shape": "dot"}, {"color": "dodgerblue", "id": "CheathamBarry", "label": "CheathamBarry", "shape": "dot"}, {"color": "teal", "id": "ConrackCarol", "label": "ConrackCarol", "shape": "dot"}]);
+        edges = new vis.DataSet([{"arrows": "to", "from": "GuntherMatt", "to": "KirklandNiles", "value": 1}, {"arrows": "to", "from": "GuntherMatt", "to": "CoreyAlonzo", "value": 1}, {"arrows": "to", "from": "LeeCrystal", "to": "AndrewsSally", "value": 1}, {"arrows": "to", "from": "LangdonAndrew", "to": "StanleyMaurice", "value": 1}, {"arrows": "to", "from": "MobleyLyle", "to": "ParkerByron", "value": 2}, {"arrows": "to", "from": "MobleyLyle", "to": "CantwellSylvester", "value": 1}, {"arrows": "to", "from": "BowersCarl", "to": "ForesterCarol", "value": 1}, {"arrows": "to", "from": "WinfreyAlice", "to": "MitchellGrant", "value": 1}, {"arrows": "to", "from": "AndrewsSally", "to": "LeeCrystal", "value": 1}, {"arrows": "to", "from": "VestMiko", "to": "KirklandRudy", "value": 1}, {"arrows": "to", "from": "CantwellSylvester", "to": "MobleyLyle", "value": 1}, {"arrows": "to", "from": "RosenHenry", "to": "DerbyTammy", "value": 1}, {"arrows": "to", "from": "EvansJay", "to": "TerryThomas", "value": 1}, {"arrows": "to", "from": "NoblesCary", "to": "FindlayGary", "value": 1}, {"arrows": "to", "from": "NoblesCary", "to": "JeffersonMillie", "value": 1}, {"arrows": "to", "from": "TatumAnna", "to": "BoyleAlice", "value": 1}, {"arrows": "to", "from": "DerbyTammy", "to": "RosenHenry", "value": 1}, {"arrows": "to", "from": "JeffersonMillie", "to": "FindlayGary", "value": 1}, {"arrows": "to", "from": "JeffersonMillie", "to": "NoblesCary", "value": 1}, {"arrows": "to", "from": "GliddenDiana", "to": "GleesonMatt", "value": 1}, {"arrows": "to", "from": "BoyleAlice", "to": "TatumAnna", "value": 1}, {"arrows": "to", "from": "ParkerByron", "to": "MobleyLyle", "value": 1}, {"arrows": "to", "from": "WolffRodney", "to": "TillieNigel", "value": 1}, {"arrows": "to", "from": "TillieNigel", "to": "WolffRodney", "value": 1}, {"arrows": "to", "from": "BendixJerryLee", "to": "AlexanderNolan", "value": 1}, {"arrows": "to", "from": "CanfieldAristides", "to": "SprintMelody", "value": 1}, {"arrows": "to", "from": "GradyRufus", "to": "StithCarlton", "value": 1}, {"arrows": "to", "from": "BeckerMax", "to": "TraskBenjie", "value": 1}, {"arrows": "to", "from": "ForesterCarol", "to": "BowersCarl", "value": 1}, {"arrows": "to", "from": "CheathamBarry", "to": "ConrackCarol", "value": 1}, {"arrows": "to", "from": "StanleyMaurice", "to": "LangdonAndrew", "value": 1}, {"arrows": "to", "from": "KirklandNiles", "to": "CoreyAlonzo", "value": 1}, {"arrows": "to", "from": "KirklandNiles", "to": "GuntherMatt", "value": 1}, {"arrows": "to", "from": "CoreyAlonzo", "to": "KirklandNiles", "value": 1}, {"arrows": "to", "from": "CoreyAlonzo", "to": "GuntherMatt", "value": 1}, {"arrows": "to", "from": "ConrackCarol", "to": "CheathamBarry", "value": 1}, {"arrows": "to", "from": "FindlayGary", "to": "JeffersonMillie", "value": 1}, {"arrows": "to", "from": "FindlayGary", "to": "NoblesCary", "value": 1}, {"arrows": "to", "from": "MitchellGrant", "to": "WinfreyAlice", "value": 1}, {"arrows": "to", "from": "SprintMelody", "to": "CanfieldAristides", "value": 1}, {"arrows": "to", "from": "StithCarlton", "to": "GradyRufus", "value": 1}, {"arrows": "to", "from": "GleesonMatt", "to": "GliddenDiana", "value": 1}, {"arrows": "to", "from": "AlexanderNolan", "to": "BendixJerryLee", "value": 1}, {"arrows": "to", "from": "KirklandRudy", "to": "VestMiko", "value": 1}, {"arrows": "to", "from": "TraskBenjie", "to": "BeckerMax", "value": 1}, {"arrows": "to", "from": "TerryThomas", "to": "EvansJay", "value": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
